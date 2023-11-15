@@ -1,11 +1,39 @@
-import React from 'react'
+import React from "react";
+import { CardContainer } from "./styles";
+import { useSortable } from "@dnd-kit/sortable";
+import { CSS } from "@dnd-kit/utilities";
+function Card({ card }) {
+  const {
+    setNodeRef,
+    attributes,
+    listeners,
+    transform,
+    transition,
+    isDragging,
+  } = useSortable({
+    id: card.id,
+    data: {
+      type: "Card",
+      card,
+    },
+  });
 
-function Card({card}) {
+  const style = {
+    transition,
+    transform: CSS.Transform.toString(transform),
+  };
+
+
   return (
-    <div>
-        {card.name}
-    </div>
-  )
+    <CardContainer
+      ref={setNodeRef}
+      style={style}
+      {...attributes}
+      {...listeners}
+    >
+      {card.name}
+    </CardContainer>
+  );
 }
 
-export default Card
+export default Card;
